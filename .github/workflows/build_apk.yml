@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-apk:
-    name: Build Kashkha Android APK
+    name: Build Murajaa Android APK
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,13 +24,17 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Generate Android platform files & add Internet permission
+      - name: Generate Android platform files, set App Name to مراجعة & Icon
         run: |
           flutter create --platforms=android --project-name kashkha_mobile_app .
           if ! grep -q "android.permission.INTERNET" android/app/src/main/AndroidManifest.xml; then
             sed -i 's/<manifest[^>]*>/&\n    <uses-permission android:name="android.permission.INTERNET"\/>/' android/app/src/main/AndroidManifest.xml
           fi
+          sed -i 's/android:label="[^"]*"/android:label="مراجعة"/g' android/app/src/main/AndroidManifest.xml
           flutter pub get
+          if [ -f "assets/icon/app_icon.png" ]; then
+            dart run flutter_launcher_icons
+          fi
 
       - name: Build Release APK
         run: flutter build apk --release
@@ -38,5 +42,5 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kashkha-tailor-android-apk
+          name: murajaa-android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
