@@ -24,17 +24,20 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Set App Name inside Dart code to مراجعة
-        run: sed -i "s/'shopName': 'كشخة للخياطة الرجالية'/'shopName': ''/g; s/: 'كشخة للخياطة الرجالية'/: 'مراجعة'/g; s/title: 'كشخة للخياطة - تطبيق المتابعة'/title: 'مراجعة'/g" lib/main.dart
+      - name: Set App Name inside Dart to Murajaa
+        run: sed -i "s/كشخة للخياطة - تطبيق المتابعة/مراجعة/g; s/كشخة للخياطة الرجالية/مراجعة/g" lib/main.dart
 
       - name: Generate Android files
         run: flutter create --platforms=android --project-name kashkha_mobile_app .
 
-      - name: Set Android Permission and Label to مراجعة
-        run: sed -i 's/<manifest[^>]*>/&\n    <uses-permission android:name="android.permission.INTERNET"\/>/; s/android:label="[^"]*"/android:label="مراجعة"/g' android/app/src/main/AndroidManifest.xml
+      - name: Add Internet Permission
+        run: "sed -i 's/<manifest[^>]*>/&\\n    <uses-permission android:name=\"android.permission.INTERNET\"\\/>/' android/app/src/main/AndroidManifest.xml"
 
-      - name: Apply Custom Icon if uploaded
-        run: if [ -f "assets/icon/app_icon.png" ]; then cp assets/icon/app_icon.png android/app/src/main/res/mipmap-mdpi/ic_launcher.png && cp assets/icon/app_icon.png android/app/src/main/res/mipmap-hdpi/ic_launcher.png && cp assets/icon/app_icon.png android/app/src/main/res/mipmap-xhdpi/ic_launcher.png && cp assets/icon/app_icon.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png && cp assets/icon/app_icon.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png; fi
+      - name: Set Android Label to Murajaa
+        run: "sed -i 's/android:label=\"[^\"]*\"/android:label=\"مراجعة\"/g' android/app/src/main/AndroidManifest.xml"
+
+      - name: Apply Custom Icon
+        run: "if [ -f assets/icon/app_icon.png ]; then for d in android/app/src/main/res/mipmap-*; do cp -f assets/icon/app_icon.png $d/ic_launcher.png || true; done; fi"
 
       - name: Get Flutter packages
         run: flutter pub get
