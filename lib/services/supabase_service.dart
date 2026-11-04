@@ -52,9 +52,9 @@ class SupabaseService {
   Future<Map<String, dynamic>> fetchSettings() async {
     final defaults = <String, dynamic>{
       'id': 'general',
-      'shopName': 'كشخة للخياطة الرجالية',
-      'shopPhone': '0548962387',
-      'shopAddress': 'مكة المكرمة - الشرائع - شارع ناصر الدين',
+      'shopName': '',
+      'shopPhone': '',
+      'shopAddress': '',
       'fabricPerThobe': 3.5,
       'taxRate': 0,
     };

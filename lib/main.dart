@@ -12,7 +12,7 @@ class KashkhaTailorMobileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'كشخة للخياطة - تطبيق المتابعة',
+      title: 'مراجعة',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -57,8 +57,8 @@ class _MainHomeShellState extends State<MainHomeShell> {
   DateTime? _lastSyncTime;
 
   Map<String, dynamic> _settings = {
-    'shopName': 'كشخة للخياطة الرجالية',
-    'shopPhone': '0548962387',
+    'shopName': '',
+    'shopPhone': '',
     'fabricPerThobe': 3.5,
   };
   List<Map<String, dynamic>> _orders = [];
@@ -220,7 +220,7 @@ class _MainHomeShellState extends State<MainHomeShell> {
   Widget build(BuildContext context) {
     final shopName = (_settings['shopName']?.toString().trim().isNotEmpty ?? false)
         ? _settings['shopName'].toString()
-        : 'كشخة للخياطة الرجالية';
+        : 'مراجعة';
 
     return Scaffold(
       appBar: AppBar(
